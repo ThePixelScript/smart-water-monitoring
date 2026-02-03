@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Historical Sensor Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .back-btn {
+        display: inline-block;
+        margin: 15px;
+        padding: 6px 12px;
+        background: #0077ff;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+      }
+      .back-btn:hover {
+        background: #005fcc;
+      }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-btn">⬅ Back to Live Dashboard</a>
+    <h1>Historical Sensor Data</h1>
+    <canvas id="levelChart" width="800" height="200"></canvas>
+    <canvas id="tempChart" width="800" height="200"></canvas>
+    <canvas id="phChart" width="800" height="200"></canvas>
+    <canvas id="tdsChart" width="800" height="200"></canvas>
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        let ts  = {{ timestamps | tojson }};
+        let lv  = {{ levels | tojson }};
+        let tmp = {{ temps | tojson }};
+        let phs = {{ phs | tojson }};
+        let tds = {{ tds_values | tojson }};
+        function createChart(ctxId, label, data, color) {
+            new Chart(document.getElementById(ctxId), {
+                type: 'line',
+                data: {
+                    labels: ts,
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        borderColor: color,
+                        fill: false,
+                        tension: 0.2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Time' }
+                        },
+                        y: {
+                            title: { display: true, text: label }
+                        }
+                    }
+                }
+            });
+        }
+        createChart('levelChart', 'Water Level (cm)', lv, 'blue');
+        createChart('tempChart', 'Temperature (°C)', tmp, 'red');
+        createChart('phChart', 'pH', phs, 'green');
+        createChart('tdsChart', 'TDS (ppm)', tds, 'orange');
+    });
+    </script>
+</body>
+</html>
