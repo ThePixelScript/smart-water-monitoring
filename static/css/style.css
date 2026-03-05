@@ -4,14 +4,12 @@
   --text-color: #222;
   --header-footer-bg: rgba(255,255,255,0.3);
 }
-
 body.dark-mode {
   --bg-gradient: radial-gradient(circle at top left, #1a1a2e, #16213e, #0f3460);
   --card-bg: rgba(20, 24, 48, 0.9);
   --text-color: #f5f6fa;
   --header-footer-bg: rgba(30, 40, 60, 0.7);
 }
-
 html, body {
   height: 100%;
   margin: 0;
@@ -23,8 +21,6 @@ html, body {
   flex-direction: column;
   transition: background 0.6s ease, color 0.6s ease;
 }
-
-/* ================= HEADER ================= */
 header {
   padding: 20px;
   background-color: var(--header-footer-bg);
@@ -37,7 +33,6 @@ header {
   align-items: center;
   position: relative;
 }
-
 .theme-toggle {
   position: absolute;
   left: 20px;
@@ -51,11 +46,9 @@ header {
   transition: background 0.3s, color 0.3s;
   color: var(--text-color);
 }
-
 .theme-toggle:hover {
   background: rgba(0, 0, 0, 0.2);
 }
-
 .history-btn {
   position: absolute;
   left: 150px;
@@ -69,12 +62,9 @@ header {
   font-size: 0.9rem;
   transition: background 0.3s;
 }
-
 .history-btn:hover {
   background: rgba(0, 0, 0, 0.3);
 }
-
-/* ================= DASHBOARD GRID ================= */
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -84,8 +74,6 @@ header {
   width: 100%;
   box-sizing: border-box;
 }
-
-/* ================= CARD ================= */
 .card {
   background: var(--card-bg);
   border-radius: 15px;
@@ -97,28 +85,22 @@ header {
   justify-content: space-between;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.35);
 }
-
 h2 {
   margin-bottom: 10px;
   color: var(--text-color);
 }
-
 .value {
   font-size: 1.5rem;
   font-weight: 600;
 }
-
 canvas {
   width: 100% !important;
   height: 200px !important;
 }
-
-/* ================= FOOTER ================= */
 footer {
   text-align: center;
   padding: 10px;
@@ -127,8 +109,6 @@ footer {
   flex-shrink: 0;
   margin-top: auto;
 }
-
-/* ================= NOTIFICATIONS ================= */
 #notifications-container {
   position: fixed;
   top: 20px;
@@ -139,7 +119,6 @@ footer {
   flex-direction: column;
   gap: 10px;
 }
-
 .notification {
   background: rgba(255, 140, 0, 0.9);
   color: white;
@@ -150,17 +129,73 @@ footer {
   transition: opacity 1s, transform 0.3s;
   animation: fadeIn 0.3s ease;
 }
-
 .notification.danger {
   background: rgba(255, 0, 0, 0.9);
   animation: pulse 1s infinite alternate;
 }
-
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 5px rgba(255,0,0,0.5);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(255,0,0,0.8);
+  }
+}  color: var(--text-color);
+}
+.value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+canvas {
+  width: 100% !important;
+  height: 200px !important;
+}
+footer {
+  text-align: center;
+  padding: 10px;
+  background: var(--header-footer-bg);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: auto;
+}
+#notifications-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.notification {
+  background: rgba(255, 140, 0, 0.9);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  opacity: 1;
+  transition: opacity 1s, transform 0.3s;
+  animation: fadeIn 0.3s ease;
+}
+.notification.danger {
+  background: rgba(255, 0, 0, 0.9);
+  animation: pulse 1s infinite alternate;
+}
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes pulse {
   from { box-shadow: 0 0 5px rgba(255,0,0,0.5); }
   to { box-shadow: 0 0 20px rgba(255,0,0,0.8); }
