@@ -1,11 +1,10 @@
 from flask import Flask, render_template, jsonify, request
 from datetime import datetime
-import csv, os, time
+import csv
+import os
 app = Flask(__name__)
 latest_data = {
     "level": 0,
-    "temp": 0,
-    "ph": 0,
     "tds": 0,
     "timestamp": None
 }
@@ -13,28 +12,28 @@ CSV_FILE = "sensor_log.csv"
 if not os.path.exists(CSV_FILE):
     with open(CSV_FILE, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["timestamp","level","temp","ph","tds"])
+        writer.writerow(["timestamp", "level", "tds"])
 @app.route('/')
 def index():
     return render_template("index.html")
 @app.route('/analysis')
 def analysis():
-    timestamps, levels, temps, phs, tds_values = [], [], [], [], []
+    timestamps = []
+    levels = []
+    tds_values = []
     if os.path.exists(CSV_FILE):
         with open(CSV_FILE, newline='') as f:
             reader = csv.DictReader(f)
             for row in reader:
                 timestamps.append(row['timestamp'])
                 levels.append(float(row['level']))
-                temps.append(float(row['temp']))
-                phs.append(float(row['ph']))
                 tds_values.append(float(row['tds']))
-    return render_template("analysis.html",
-                           timestamps=timestamps,
-                           levels=levels,
-                           temps=temps,
-                           phs=phs,
-                           tds_values=tds_values)
+    return render_template(
+        "analysis.html",
+        timestamps=timestamps,
+        levels=levels,
+        tds_values=tds_values
+    )
 @app.route('/api/data', methods=['POST'])
 def submit_data():
     global latest_data
@@ -43,13 +42,20 @@ def submit_data():
     latest_data = data
     with open(CSV_FILE, "a", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow([data["timestamp"], data["level"], data["temp"], data["ph"], data["tds"]])
+        writer.writerow([
+            data["timestamp"],
+            data["level"],
+            data["tds"]
+        ])
     return jsonify({"status": "success"}), 200
 @app.route('/api/data', methods=['GET'])
 def get_data():
     stale = False
     if latest_data["timestamp"]:
-        data_age = (datetime.now() - datetime.strptime(latest_data["timestamp"], "%Y-%m-%d %H:%M:%S")).total_seconds()
+        data_age = (
+            datetime.now() -
+            datetime.strptime(latest_data["timestamp"], "%Y-%m-%d %H:%M:%S")
+        ).total_seconds()
         if data_age > 15:
             stale = True
     return jsonify({**latest_data, "stale": stale})
