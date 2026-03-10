@@ -75,7 +75,7 @@ function updateSystemState(state) {
 
   if (!state) {
 
-    badge.innerText = "STATUS: OFFLINE";
+    badge.innerText = "STATUS: ONLINE";
     badge.style.background = "gray";
     return;
 
