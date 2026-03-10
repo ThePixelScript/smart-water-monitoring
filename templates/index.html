@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Water Monitoring Dashboard</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Smart Water Monitoring Dashboard</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header>
-    <span class="theme-toggle" id="themeToggle">🌙 Dark Mode</span>
-    <span style="font-weight:600;">
-      🌊 Smart Water Monitoring Dashboard
-    </span>
-    <span id="systemState"
-      style="
-        margin-left: 15px;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        background: gray;
-        color: white;
-      ">
-      STATUS: --
-    </span>
-    <a href="/analysis" class="history-btn" title="View History">
-      📊 History
-    </a>
-  </header>
-  <div class="container">
-    <div class="card">
-      <h2>Water Level</h2>
-      <p class="value" id="levelValue">-- cm</p>
-      <canvas id="levelChart"></canvas>
-    </div>
-    <div class="card">
-      <h2>TDS</h2>
-      <p class="value" id="tdsValue">-- ppm</p>
-      <canvas id="tdsChart"></canvas>
-    </div>
-  </div>
-  <div id="notifications-container"></div>
-  <footer>
-    Made for Multidisciplinary | SDG 6: Clean Water & Sanitation
-  </footer>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+	<header>
+		<span class="theme-toggle" id="themeToggle">🌙 Dark Mode</span>
+		<span style="font-weight:600;">
+			🌊 Smart Water Monitoring Dashboard
+		</span>
+		<span id="systemState"
+			style="
+				margin-left: 15px;
+				padding: 4px 12px;
+				border-radius: 12px;
+				font-size: 0.9rem;
+				font-weight: 600;
+				background: gray;
+				color: white;
+			">
+			STATUS: --
+		</span>
+		<a href="/analysis" class="history-btn" title="View History">
+			📊 History
+		</a>
+	</header>
+	<div class="container">
+		<!-- Water Level -->
+		<div class="card">
+			<h2>Water Level</h2>
+			<p class="value">
+				<span id="levelValue">--</span> cm
+				<br>
+				<span id="percentValue">--</span> %
+			</p>
+			<canvas id="levelChart"></canvas>
+		</div>
+		<!-- TDS -->
+		<div class="card">
+			<h2>TDS</h2>
+			<p class="value" id="tdsValue">-- ppm</p>
+			<canvas id="tdsChart"></canvas>
+		</div>
+	</div>
+	<div id="notifications-container"></div>
+	<footer>
+		Made for Multidisciplinary | SDG 6: Clean Water & Sanitation
+	</footer>
+	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
